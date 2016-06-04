@@ -109,7 +109,9 @@
     this.initialDate = options.initialDate || new Date();
     this.zIndex = options.zIndex || this.element.data('z-index') || undefined;
     this.title = typeof options.title === 'undefined' ? false : options.title;
-    this.defaultTimeZone = (new Date).toString().split('(')[1].slice(0, -1);
+    // ie9,10 somehow has no timezone eg. Sun Jun 5 02:57:06 UTC+0800 2016
+    var timezone = (new Date).toString().split('(')[1];
+    this.defaultTimeZone = timezone ? timezone.slice(0, -1) : '';
     this.timezone = options.timezone || this.defaultTimeZone;
 
     this.icons = {
